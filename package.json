@@ -20,11 +20,16 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "axios": "^1.13.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "lucide-react": "^0.468.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.68.0",
     "react-router-dom": "^7.9.6",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1",
     "zod": "^4.1.13"
   },
   "devDependencies": {
