@@ -1,7 +1,7 @@
 export default {
   development: {
     dialect: "sqlite",
-    storage: "./src/database/database.sqlite",
+    storage: process.env.DATABASE_STORAGE ?? "./src/database/database.local.sqlite",
   },
   test: {
     dialect: "sqlite",
@@ -9,6 +9,6 @@ export default {
   },
   production: {
     dialect: "sqlite",
-    storage: "./src/database/database.sqlite",
+    storage: process.env.DATABASE_STORAGE ?? "./src/database/database.sqlite",
   },
 };

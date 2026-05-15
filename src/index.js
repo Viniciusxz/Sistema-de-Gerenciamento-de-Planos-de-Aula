@@ -1,6 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
+import sequelize from "./database/models/index.js";
 import planoRoutes from "./modules/planos/plano.routes.js";
 
 const app = express();
@@ -44,6 +45,8 @@ app.get("/", (req, res) => {
 app.post("/smart-assist/recommendations", (req, res) => {
   res.json(getSmartAssistRecommendations(req.body));
 });
+
+await sequelize.sync();
 
 app.listen(PORT, () => {
   console.log(`API rodando em http://localhost:${PORT}`);
