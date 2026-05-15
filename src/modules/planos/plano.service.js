@@ -1,7 +1,11 @@
 import Titulo from "../../database/models/titulo.js";
 
 const pegaTodos = async () => {
-    return Titulo.findAll();
+    const planos = await Titulo.findAll();
+    return planos.map(plano => ({
+        ...plano.toJSON(),
+        tags: plano.tags ? plano.tags.split(",").map(t => t.trim()) : []
+    }));
 }
 
 const pegaUm = async (id) => {

@@ -4,10 +4,10 @@ import planoController from "./plano.controller.js";
 
 const router = Router();
 
-router.get("/titulo", planoController.pegaTodos);
-router.get("/titulo/:id", planoController.pegaUm);
-router.post('/titulo', planoController.criarUm);
-router.put('/titulo/:id', planoController.atualizarUm);
-router.delete('/titulo/:id', planoController.excluirUm);
+router.get("/", planoController.pegaTodos);
+router.get("/:id", planoController.pegaUm);
+router.post('/', planoController.criarUm);
+router.put('/:id', planoController.atualizarUm);
+router.delete('/:id', planoController.excluirUm);
 
 export default router;
