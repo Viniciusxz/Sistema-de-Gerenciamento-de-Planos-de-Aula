@@ -282,7 +282,3 @@ npm run build
 ```
 
 Esses comandos verificam problemas de lint, importação, tipagem TypeScript e build de produção.
-
-## Licença
-
-MIT License
