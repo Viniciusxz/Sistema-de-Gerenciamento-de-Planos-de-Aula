@@ -1,177 +1,288 @@
-    # Sistema de Gerenciamento de Planos de Aula
+<div align="center">
 
-    Aplicacao para cadastro, organizacao e consulta de planos de aula, com suporte de Inteligencia Artificial para gerar recomendacoes pedagogicas a partir do tema da aula.
+# Sistema de Gerenciamento de Planos de Aula
 
-    ## Objetivo
+**Frontend SPA moderno para cadastro, organização e consulta de planos de aula com Smart Assist.**
 
-    O projeto tem como objetivo apoiar docentes e conteudistas no planejamento de aulas. Alem de funcionar como um cadastro de planos de aula, o sistema deve sugerir conteudos complementares, topicos relacionados e tags recomendadas com base no titulo, disciplina e resumo informados pelo usuario.
+[Visão Geral](#visão-geral) | [Funcionalidades](#funcionalidades) | [Tecnologias](#tech-stack) | [Como Rodar](#como-rodar)
 
-    ## Cenario
+</div>
 
-    A equipe de desenvolvimento do laboratorio de pesquisa esta criando uma plataforma centralizada para organizar conteudos pedagogicos e facilitar o planejamento de aulas. Para tornar o fluxo mais produtivo, o sistema inclui uma funcionalidade de assistencia inteligente, usando uma API de LLM ou servico equivalente.
+## Visão Geral
 
-    ## Funcionalidades
+O **Sistema de Gerenciamento de Planos de Aula** é uma aplicação frontend criada para o desafio técnico de gerenciamento pedagógico.
 
-    ### Planos de aula
+A interface permite listar, buscar, filtrar, ordenar, criar, editar, visualizar e excluir planos de aula. O projeto também integra uma funcionalidade chamada **Smart Assist**, preparada para consumir uma API REST e gerar recomendações automáticas de conteúdos e tags.
 
-    - Listagem de planos com paginacao.
-    - Cadastro de novos planos de aula.
-    - Edicao de planos existentes.
-    - Exclusao de planos.
-    - Busca por titulo da aula.
-    - Filtros por disciplina, tags e data prevista.
-    - Ordenacao por titulo ou data de cadastro.
+O foco da aplicação é entregar uma experiência limpa, responsiva e pronta para apresentação técnica, com arquitetura organizada em componentes, páginas, serviços, schemas, tipos e utilitários.
 
-    ### Campos do plano
+## Objetivos
 
-    - Titulo da aula.
-    - Objetivo.
-    - Ementa ou resumo.
-    - Data prevista.
-    - Disciplina.
-    - Conteudos.
-    - Recursos de apoio.
-    - Tags.
+- Criar uma SPA moderna para gerenciamento de planos de aula
+- Implementar CRUD completo preparado para API REST
+- Adicionar busca, filtros, ordenação e paginação
+- Validar formulários com React Hook Form e Zod
+- Integrar a funcionalidade Smart Assist via endpoint HTTP
+- Garantir responsividade e boa usabilidade em desktop e mobile
+- Manter código organizado, reutilizável e fácil de apresentar
 
-    ### Smart Assist com IA
+## Contexto
 
-    No formulario de cadastro ou edicao, o usuario pode acionar o botao **Gerar Recomendacoes com IA**.
+A aplicação foi desenvolvida para apoiar docentes, instrutores e conteudistas no planejamento de aulas.
 
-    Fluxo esperado:
+Cada plano de aula possui informações essenciais como título, objetivo, ementa, disciplina, data prevista, conteúdos, recursos de apoio e tags.
 
-    1. O frontend envia para o backend o titulo da aula, a disciplina e a ementa/resumo.
-    2. O backend monta um prompt para atuar como um assistente pedagogico.
-    3. A API de IA retorna sugestoes em formato estruturado, preferencialmente JSON.
-    4. O frontend preenche automaticamente os campos de conteudos, topicos relacionados e 3 tags recomendadas.
+O Smart Assist melhora o fluxo de cadastro ao sugerir conteúdos complementares, tópicos relacionados e tags com base nos dados principais da aula.
 
-    ## Requisitos Tecnicos
+## Funcionalidades
 
-    ### Backend
+- **Listagem de Planos**: visualização em tabela no desktop e cards em telas menores
+- **Busca e Filtros**:
+  - Busca por título da aula
+  - Filtro por disciplina
+  - Filtro por tag
+  - Filtro por data prevista
+- **Ordenação**:
+  - Título A-Z e Z-A
+  - Data de cadastro mais recente ou mais antiga
+- **Paginação**: navegação entre páginas de resultados
+- **CRUD Completo**:
+  - Cadastro de plano
+  - Edição de plano
+  - Visualização de detalhes
+  - Exclusão com modal de confirmação
+- **Validação de Formulário**:
+  - Título com no mínimo 3 caracteres
+  - Objetivo com no mínimo 5 caracteres
+  - Ementa/Resumo com no mínimo 10 caracteres
+  - Data prevista válida
+  - Disciplina obrigatória
+- **Smart Assist**:
+  - Botão com loading
+  - Requisição preparada para API real
+  - Tratamento visual de erro
+  - Preenchimento automático de conteúdos e tags
+- **Fallback Local**:
+  - Modo opcional com `localStorage` para testar sem backend
+  - Recomendações locais temporárias para demonstração
 
-    A API RESTful pode ser implementada com uma das seguintes stacks:
+## Tech Stack
 
-    - Python com Flask.
-    - Node.js com Express ou Fastify.
+| Tecnologia        | Finalidade                                  |
+| ----------------- | ------------------------------------------- |
+| React             | Biblioteca principal de UI                  |
+| TypeScript        | Tipagem estática e contratos da aplicação   |
+| Vite              | Build tool e dev server                     |
+| Tailwind CSS      | Estilização utilitária e responsiva         |
+| React Router DOM  | Gerenciamento de rotas da SPA               |
+| React Hook Form   | Controle e performance dos formulários      |
+| Zod               | Validação de schemas                        |
+| Axios             | Cliente HTTP para consumo da API REST       |
+| Lucide React      | Ícones da interface                         |
+| ESLint            | Padronização e análise do código            |
+| Prettier          | Formatação automática                       |
 
-    Requisitos do backend:
+## Rotas
 
-    - Validacao dos dados recebidos.
-    - Persistencia em MySQL, PostgreSQL ou SQLite.
-    - Integracao com uma API de IA/LLM.
-    - Prompt claro para garantir resposta estruturada.
-    - Chave da API configurada por variavel de ambiente.
-    - Endpoint de health check em `/health`.
-    - Tratamento de erros nas operacoes principais.
+| Rota                 | Descrição                   |
+| -------------------- | --------------------------- |
+| `/planos`            | Listagem de planos de aula  |
+| `/planos/novo`       | Cadastro de novo plano      |
+| `/planos/:id`        | Detalhes do plano           |
+| `/planos/:id/editar` | Edição de plano existente   |
 
-    ### Frontend
+## Entidade Plano de Aula
 
-    - SPA (Single Page Application).
-    - Tela de listagem com filtros e paginacao.
-    - Formulario de cadastro e edicao com validacao.
-    - Loading state enquanto a IA processa a recomendacao.
-    - Tratamento visual de erro caso a API de IA falhe ou demore.
+```ts
+interface LessonPlan {
+  id: string;
+  tituloAula: string;
+  objetivo: string;
+  ementaResumo: string;
+  dataPrevista: string;
+  disciplina: string;
+  conteudos?: string[];
+  recursosApoio?: string[];
+  tags?: string[];
+  dataCadastro: string;
+}
+```
 
-    ## Observabilidade
+## Integração com API
 
-    O sistema deve registrar logs estruturados nas principais operacoes, principalmente durante a interacao com a IA.
+A URL base da API é configurada por variável de ambiente:
 
-    Exemplo de log:
+```env
+VITE_API_URL=http://localhost:3000
+```
 
-    ```text
-    [INFO] AI Request: Title="Introducao ao OSPF", Discipline="Redes", TokenUsage=180, Latency=1.4s
-    ```
+### Endpoints esperados
 
-    ## DevOps
+```text
+GET    /lesson-plans
+GET    /lesson-plans/:id
+POST   /lesson-plans
+PUT    /lesson-plans/:id
+DELETE /lesson-plans/:id
+POST   /smart-assist/recommendations
+```
 
-    Itens diferenciais para a entrega:
+### Query params da listagem
 
-    - Pipeline de CI no GitHub Actions ou similar.
-    - Execucao de linter a cada push.
-    - Dockerfile(s) para a aplicacao.
-    - Arquivo `docker-compose.yml` para execucao local.
-    - Ambiente executavel com um unico comando.
+```text
+page
+limit
+search
+disciplina
+tag
+dataPrevista
+sortBy
+order
+```
 
-    Sugestoes de ferramentas:
+## Smart Assist
 
-    - Python: `flake8` e `black`.
-    - JavaScript: `ESLint` e `Prettier`.
+No formulário de cadastro e edição, o botão **Gerar Recomendações com IA** envia para o backend:
 
-    ## Variaveis de Ambiente
+```json
+{
+  "tituloAula": "Introdução ao OSPF",
+  "disciplina": "Redes de Computadores",
+  "ementaResumo": "Aula introdutória sobre funcionamento do protocolo OSPF."
+}
+```
 
-    As chaves sensiveis nao devem ficar hardcoded no codigo. Use um arquivo `.env` local e mantenha esse arquivo no `.gitignore`.
+Endpoint:
 
-    Exemplo:
+```text
+POST /smart-assist/recommendations
+```
 
-    ```env
-    DATABASE_URL=sqlite:///database.db
-    AI_API_KEY=sua-chave-aqui
-    AI_MODEL=nome-do-modelo
-    ```
+Resposta esperada:
 
-    ## Como Executar
+```json
+{
+  "conteudosComplementares": [
+    "Conceito de roteamento dinâmico",
+    "Diferença entre OSPF e RIP"
+  ],
+  "topicosRelacionados": [
+    "Protocolos de roteamento",
+    "Redes TCP/IP"
+  ],
+  "tagsRecomendadas": ["redes", "ospf", "roteamento"]
+}
+```
 
-    > Atualize esta secao de acordo com a stack escolhida e os scripts implementados no projeto.
+Quando a chamada retorna com sucesso, a aplicação preenche automaticamente os campos de conteúdos e tags. Em caso de falha, exibe uma mensagem amigável.
 
-    ### Com Docker
+## Modo sem Backend
 
-    ```bash
-    docker compose up --build
-    ```
+Se a API em `http://localhost:3000` não estiver rodando, o navegador pode mostrar:
 
-    ### Backend
+```text
+Failed to load resource: net::ERR_CONNECTION_REFUSED
+```
 
-    ```bash
-    # Exemplo para Python
-    pip install -r requirements.txt
-    flask run
-    ```
+Isso significa que o frontend tentou chamar o backend, mas não encontrou nenhum serviço ativo nessa porta.
 
-    ```bash
-    # Exemplo para Node.js
-    npm install
-    npm run dev
-    ```
+Para testar a aplicação sem backend, use no `.env`:
 
-    ### Frontend
+```env
+VITE_USE_LOCAL_FALLBACK=true
+```
 
-    ```bash
-    npm install
-    npm run dev
-    ```
+Nesse modo, o CRUD usa `localStorage` e o Smart Assist retorna recomendações locais temporárias.
 
-    ## Estrutura Sugerida do Projeto
+Para voltar a consumir a API REST real:
 
-    ```text
-    .
-    |-- backend/
-    |   |-- src/
-    |   |-- tests/
-    |   `-- Dockerfile
-    |-- frontend/
-    |   |-- src/
-    |   `-- Dockerfile
-    |-- docker-compose.yml
-    |-- .env.example
-    |-- .gitignore
-    `-- README.md
-    ```
+```env
+VITE_USE_LOCAL_FALLBACK=false
+```
 
-    ## Entrega
+## Como Rodar
 
-    - Repositorio Git publico.
-    - README detalhado.
-    - Video de ate 5 minutos apresentando a solucao.
-    - Demonstracao das principais escolhas tecnicas.
-    - Explicacao da organizacao do projeto.
-    - Descricao das dificuldades encontradas.
-    - Demonstracao ou descricao dos itens bonus implementados.
+Instale as dependências:
 
-    ## Boas Praticas
-    - Criar um prompt de IA orientado ao papel de "Assistente Pedagogico".
-    - Solicitar resposta da IA em JSON para facilitar o uso no frontend.
-    - Nunca versionar chaves de API.
-    - Usar `.env` para configuracoes locais.
-    - Incluir `.env` no `.gitignore`.
-    - Aplicar validacao no frontend e no backend.
-    - Tratar erros de integracao com a IA de forma clara para o usuario.
-    - Manter logs uteis para depuracao e observabilidade.
+```bash
+npm install
+```
+
+Inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+A aplicação ficará disponível no endereço exibido pelo Vite, geralmente:
+
+```text
+http://localhost:5173
+```
+
+Em alguns ambientes Windows, caso o PowerShell bloqueie `npm.ps1`, execute:
+
+```bash
+npm.cmd run dev
+```
+
+## Scripts
+
+| Script            | Descrição                                 |
+| ----------------- | ----------------------------------------- |
+| `npm run dev`     | Inicia o servidor local do Vite           |
+| `npm run build`   | Valida TypeScript e gera build de produção |
+| `npm run preview` | Serve localmente o build gerado           |
+| `npm run lint`    | Executa análise com ESLint                |
+| `npm run format`  | Formata arquivos com Prettier             |
+
+## Estrutura do Projeto
+
+```text
+src/
+  components/
+    Layout.tsx
+    Navbar.tsx
+    Button.tsx
+    Input.tsx
+    Textarea.tsx
+    Select.tsx
+    Badge.tsx
+    Loading.tsx
+    EmptyState.tsx
+    ConfirmModal.tsx
+  pages/
+    LessonPlansList.tsx
+    LessonPlanForm.tsx
+    LessonPlanDetails.tsx
+  services/
+    api.ts
+    lessonPlansService.ts
+    smartAssistService.ts
+    localLessonPlansStore.ts
+  schemas/
+    lessonPlanSchema.ts
+  types/
+    lessonPlan.ts
+  utils/
+    formatDate.ts
+    cn.ts
+  App.tsx
+  main.tsx
+  index.css
+```
+
+## Qualidade e Validação
+
+O projeto foi preparado para ser validado com:
+
+```bash
+npm run lint
+npm run build
+```
+
+Esses comandos verificam problemas de lint, importação, tipagem TypeScript e build de produção.
+
+## Licença
+
+MIT License
