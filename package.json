@@ -5,7 +5,9 @@
   "private": true,
   "main": "index.html",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/dev.js",
+    "dev:web": "vite",
+    "api": "node src/index.js",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",

@@ -18,6 +18,19 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    files: ["scripts/**/*.js"],
+    languageOptions: {
+      ecmaVersion: 2024,
+      globals: {
+        ...globals.node,
+        fetch: "readonly",
+      },
+    },
+    rules: {
+      "no-console": "off",
+    },
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     plugins: {
       "react-hooks": reactHooks,
