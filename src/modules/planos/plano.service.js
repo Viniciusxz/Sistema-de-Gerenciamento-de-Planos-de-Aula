@@ -161,37 +161,56 @@ function paginate(plans, params) {
 }
 
 const pegaTodos = async (params = {}) => {
+  const inicio = Date.now();
   const planos = await Titulo.findAll();
   const mappedPlans = planos.map(toLessonPlan);
   const filteredPlans = mappedPlans.filter((plan) => matchesFilters(plan, params));
   const sortedPlans = sortPlans(filteredPlans, params);
+  const latency = ((Date.now() - inicio) / 1000).toFixed(2);
+  console.log(`[INFO] GET planos: Total=${planos.length}, Latency=${latency}s`);
 
   return paginate(sortedPlans, params);
 };
 
 const pegaUm = async (id) => {
+  const inicio = Date.now();
   const plano = await Titulo.findByPk(id);
+  const latency = ((Date.now() - inicio ) / 1000).toFixed(2);
+  console.log(`[INFO] GET plano: ID=${id}, Found=${!!plano}, Latency=${latency}s`);
+  
   return toLessonPlan(plano);
 };
 
 const criar = async (dados) => {
+  const inicio = Date.now();
   const plano = await Titulo.create(toDatabasePayload(dados));
+  const latency = ((Date.now() - inicio ) / 1000).toFixed(2);
+  console.log(`[INFO] POST plano criado: Title="${dados.tituloAula}", Latency=${latency}s`);
+  
   return toLessonPlan(plano);
 };
 
 const atualizar = async (id, dados) => {
+  const inicio = Date.now();
   const plano = await Titulo.findByPk(id);
 
   if (!plano) {
+    console.log(`[WARN] PUT plano: ID=${id} não encontrado.`);
     return null;
   }
 
   await plano.update(toDatabasePayload(dados));
+  const latency = ((Date.now() - inicio ) / 1000).toFixed(2);
+  console.log(`[INFO] PUT plano atualizado: ID=${id}, Latency=${latency}s`);
   return toLessonPlan(plano);
 };
 
 const excluir = async (id) => {
-  return Titulo.destroy({ where: { id } });
+  const inicio = Date.now();
+  const result = await Titulo.destroy({ where: { id } });
+  const latency = ((Date.now() - inicio ) / 1000).toFixed(2);
+  console.log(`[INFO] DELETE plano: ID=${id}, Latency=${latency}s`)
+  return result;
 };
 
 export default { pegaTodos, pegaUm, criar, atualizar, excluir };
