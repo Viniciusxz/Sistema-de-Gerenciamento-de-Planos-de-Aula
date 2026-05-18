@@ -176,6 +176,66 @@ Resposta esperada:
 
 Quando a chamada retorna com sucesso, a aplicação preenche automaticamente os campos de conteúdos e tags. Em caso de falha, exibe uma mensagem amigável.
 
+## Backend
+
+A API REST foi desenvolvida com Node.js e Express.
+
+### Tecnologias do Backend
+
+| Tecnologia | Finalidade |
+| --- | --- |
+| Node.js + Express | Servidor e rotas da API |
+| Sequelize | ORM para banco de dados |
+| SQLite | Banco de dados |
+| CORS | Liberação de acesso cross-origin |
+| dotenv | Variáveis de ambiente |
+
+### Como Rodar só o Backend
+
+```bash
+npm run api
+```
+
+### Como Rodar com Docker
+
+```bash
+docker-compose up --build
+```
+
+A aplicação sobe completa com um único comando, frontend na porta **5173** e backend na porta **3000**.
+
+### Endpoint de Health Check
+
+```text
+GET /health
+```
+
+Retorna status da API, timestamp, uptime e ambiente.
+
+### Estrutura do Backend
+
+```text
+src/
+  config/
+    database.js
+  database/
+    migrations/
+    models/
+    seeders/
+  middlewares/
+    planos.middleware.js
+  modules/
+    planos/
+      plano.controller.js
+      plano.routes.js
+      plano.service.js
+    smartAssist/
+      smartAssist.routes.js
+      smartAssist.service.js
+  index.js
+```
+
+
 ## Modo sem Backend
 
 Se a API em `http://localhost:3000` não estiver rodando, o navegador pode mostrar:
@@ -283,61 +343,3 @@ npm run build
 
 Esses comandos verificam problemas de lint, importação, tipagem TypeScript e build de produção.
 
-## Backend
-
-A API REST foi desenvolvida com Node.js e Express.
-
-### Tecnologias do Backend
-
-| Tecnologia | Finalidade |
-| --- | --- |
-| Node.js + Express | Servidor e rotas da API |
-| Sequelize | ORM para banco de dados |
-| SQLite | Banco de dados |
-| CORS | Liberação de acesso cross-origin |
-| dotenv | Variáveis de ambiente |
-
-### Como Rodar só o Backend
-
-```bash
-npm run api
-```
-
-### Como Rodar com Docker
-
-```bash
-docker-compose up --build
-```
-
-A aplicação sobe completa com um único comando, frontend na porta **5173** e backend na porta **3000**.
-
-### Endpoint de Health Check
-
-```text
-GET /health
-```
-
-Retorna status da API, timestamp, uptime e ambiente.
-
-### Estrutura do Backend
-
-```text
-src/
-  config/
-    database.js
-  database/
-    migrations/
-    models/
-    seeders/
-  middlewares/
-    planos.middleware.js
-  modules/
-    planos/
-      plano.controller.js
-      plano.routes.js
-      plano.service.js
-    smartAssist/
-      smartAssist.routes.js
-      smartAssist.service.js
-  index.js
-```
