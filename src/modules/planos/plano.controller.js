@@ -69,3 +69,5 @@ const excluirUm = async (req, res) => {
 };
 
 export default { pegaTodos, pegaUm, criarUm, atualizarUm, excluirUm };
+
+//

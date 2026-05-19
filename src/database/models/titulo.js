@@ -15,3 +15,5 @@ const Titulo = sequelize.define("Titulo", {
 });
 
 export default Titulo;
+
+//

@@ -12,3 +12,5 @@ router.put('/:id', validar.validarId, validar.validarCriarPlano, planoController
 router.delete('/:id', validar.validarId, planoController.excluirUm);
 
 export default router;
+
+//-

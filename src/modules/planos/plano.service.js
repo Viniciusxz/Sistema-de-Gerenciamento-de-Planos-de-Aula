@@ -214,3 +214,4 @@ const excluir = async (id) => {
 };
 
 export default { pegaTodos, pegaUm, criar, atualizar, excluir };
+///

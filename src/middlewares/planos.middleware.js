@@ -33,3 +33,5 @@ const validarId = (req, res, next) => {
 }
 
 export default { validarCriarPlano, validarId };
+
+//---
